@@ -1,7 +1,8 @@
 MAKEDIR:=$(shell pwd)
 PATH:=$(shell cygpath "$(MAKEDIR)"):$(shell cygpath "$(PREFIX)")/bin:$(PATH)
 
-all: ocaml findlib num ocamlbuild camlp4 gtk lablgtk z3
+# all: ocaml findlib num ocamlbuild camlp4 gtk lablgtk z3
+all: gtk
 
 clean::
 	-rm -Rf $(PREFIX)
@@ -159,11 +160,11 @@ GTK_BINARY=$(PREFIX)/bin/gtk-demo.exe
 $(GTK_BINARY):
 	cd $(PREFIX) && \
 	  for url in \
-	    ftp://ftp.gnome.org/pub/gnome/binaries/win32/gtk+/2.24/gtk+-bundle_2.24.10-20120208_win32.zip \
-	    ftp://ftp.gnome.org/pub/gnome/binaries/win32/gtksourceview/2.10/gtksourceview-2.10.0.zip \
-	    ftp://ftp.gnome.org/pub/gnome/binaries/win32/gtksourceview/2.10/gtksourceview-dev-2.10.0.zip \
-	    ftp://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/libxml2_2.9.0-1_win32.zip \
-	    ftp://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/libxml2-dev_2.9.0-1_win32.zip \
+	    https://people.cs.kuleuven.be/~bart.jacobs/verifast/gtk2-win32-binaries/gtk+-bundle_2.24.10-20120208_win32.zip \
+	    https://people.cs.kuleuven.be/~bart.jacobs/verifast/gtk2-win32-binaries/gtksourceview-2.10.0.zip \
+	    https://people.cs.kuleuven.be/~bart.jacobs/verifast/gtk2-win32-binaries/gtksourceview-dev-2.10.0.zip \
+	    https://people.cs.kuleuven.be/~bart.jacobs/verifast/gtk2-win32-binaries/libxml2_2.9.0-1_win32.zip \
+	    https://people.cs.kuleuven.be/~bart.jacobs/verifast/gtk2-win32-binaries/libxml2-dev_2.9.0-1_win32.zip \
 	  ; do \
 	    download_and_unzip --dlcache "$(MAKEDIR)" "$$url" \
 	  ; done && \
