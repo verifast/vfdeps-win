@@ -1,8 +1,7 @@
 MAKEDIR:=$(shell pwd)
 PATH:=$(shell cygpath "$(MAKEDIR)"):$(shell cygpath "$(PREFIX)")/bin:$(PATH)
 
-# all: ocaml findlib num ocamlbuild camlp4 gtk lablgtk z3
-all: gtk
+all: ocaml findlib num ocamlbuild camlp4 gtk lablgtk z3
 
 clean::
 	-rm -Rf $(PREFIX)
