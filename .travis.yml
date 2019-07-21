@@ -1,0 +1,18 @@
+language: C
+
+os:
+  - windows
+
+install:
+  - ./setup-build.sh
+
+script:
+  - ./build.sh
+
+deploy:
+  provider: bintray
+  file: bintray.json
+  user: bart-jacobs
+  key:
+    secure: "J3C3R2ibHnrX+gmWiPsK8hGg+u1+pmuyUQnyX1bkJgfDMJPHwrWbjcxY8dldOZicdkaAYZKJUN6w1dHKl5coox07fPn53pMtaRTUn4GPd1eOymK3v6s/1Y9QsyZ9ItHjOX0vp65MOu2cvTzsj/xamhxWAHZYQI1etf74j82sSdSGaBCLdcQLDakT++LcaQCmGjgKUsaBIHApj5t1FKiLePs6euMsCNoqSpzMyNfeYztCe2Rsm2R5RuZqUDnruF5p6ZryfnQJ5WI+R3iOt/TM5wpdbzroUJDjXx1yYtFoZ389sD4EmNhdeBxBz8CdhzaD/h0s5PXP3YbXJu1ikbrns2w4F4gSRGy5Ec13pLOaGWPthDur0WV0ybqcZSlSXHnrcVjjHOvI/5zkDTsWQW+3R85FfqVcLQrUWEJXau0sf9x+30+L19PeLLJ+YKoE/emTqPw4GnDYMib3d6cRy8ilTYuFCuUTRlZdvQsJsT4HYbzsaMOt4EpJ7O3FAlC0twkiOa0VLqwnUYLesuY27WJJJrf+GWv4Tz4Kq5MUfEbFWtSWDtPQzfedq4Tf/7MI0bieTGwg0/asWZki8j5+wCFkR7/WBTM7W4J7OvJwuypwRrCod6cel9eQzkefOKcbbkoIfUf6BlJ+CYOSppdlT2UnUC2Gxa/3d/jlny2GquE1K08="
+  skip_cleanup: true
