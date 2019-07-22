@@ -7,7 +7,7 @@ install:
   - ./setup-build.sh
 
 script:
-  - ./build.sh
+  - CC= ./build.sh
 
 deploy:
   provider: bintray
