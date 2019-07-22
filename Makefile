@@ -187,7 +187,7 @@ $(LABLGTK_SRC):
 
 $(LABLGTK_CFG): $(LABLGTK_SRC) $(CAMLP4_BINARY) $(GTK_BINARY)
 	cd lablgtk-$(LABLGTK_VERSION) && \
-	  ./configure
+	  (./configure || cat config.log)
 
 $(LABLGTK_BUILD): $(LABLGTK_CFG)
 	cd lablgtk-$(LABLGTK_VERSION) && \
