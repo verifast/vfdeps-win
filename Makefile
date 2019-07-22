@@ -168,7 +168,7 @@ $(GTK_BINARY):
 	    download_and_unzip --dlcache "$(MAKEDIR)" "$$url" \
 	  ; done && \
 	  mv bin/pkg-config.exe bin/pkg-config.exe_ && \
-	  cp "$(MAKEDIR)/pkg-config_" bin/pkg_config && \
+	  cp "$(MAKEDIR)/pkg-config_" bin/pkg-config && \
 	  mv bin/pkg-config.exe_ bin/pkg-config.exe
 
 gtk: $(GTK_BINARY)
