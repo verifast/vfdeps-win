@@ -1,0 +1,4 @@
+230c230
+<         return subprocess.call(cmd, stdout=null, stderr=null)
+---
+>         return subprocess.call(cmd)

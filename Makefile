@@ -213,6 +213,7 @@ Z3_BUILD=$(Z3_DIR)/build/libz3.dll
 
 $(Z3_SRC):
 	download_and_untar https://github.com/Z3Prover/z3/archive/z3-$(Z3_VERSION).tar.gz
+	cd $(Z3_DIR)/scripts && patch mk_util.py ../../mk_util.py.patch
 
 $(Z3_CFG): $(FINDLIB_EXE) $(Z3_SRC)
 	cd $(Z3_DIR) && CXX=i686-w64-mingw32-g++ CC=i686-w64-mingw32-gcc AR=i686-w64-mingw32-ar python scripts/mk_make.py --ml --prefix=$(PREFIX)
