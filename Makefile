@@ -16,7 +16,7 @@ Z3_CFG=$(Z3_DIR)/build/Makefile
 Z3_BUILD=$(Z3_DIR)/build/libz3.dll
 
 $(Z3_SRC):
-	download_and_untar https://github.com/Z3Prover/z3/archive/z3-$(Z3_VERSION).tar.gz
+	download_and_untar https://github.com/Z3Prover/z3/archive/Z3-$(Z3_VERSION).tar.gz
 	cd $(Z3_DIR)/scripts && patch mk_util.py ../../mk_util.py.patch
 
 $(Z3_CFG): $(FINDLIB_EXE) $(Z3_SRC)
