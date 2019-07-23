@@ -1,5 +1,18 @@
-230c230,231
-<         return subprocess.call(cmd, stdout=null, stderr=null)
----
->         print("Running %s" % cmd)
->         return subprocess.call(cmd)
+--- mk_util.py	2019-07-23 18:04:32.000000000 +0200
++++ mk_util_patched_.py	2019-07-23 18:06:13.000000000 +0200
+@@ -227,9 +227,13 @@
+     cmd = new_cmd
+     null = open(os.devnull, 'wb')
+     try:
+-        return subprocess.call(cmd, stdout=null, stderr=null)
+-    except:
++        print("Running %s" % cmd)
++        exitcode = subprocess.call(cmd)
++        print("Command %s exited with exit code %s" % (cmd, exitcode))
++        return exitcode
++    except BaseException as e:
+         # Failed to create process
++        print("subprocess.call(%s) raised exception %s: %s" % (cmd, type(e), e))
+         return 1
+     finally:
+         null.close()
