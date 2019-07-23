@@ -1,4 +1,5 @@
-230c230
+230c230,231
 <         return subprocess.call(cmd, stdout=null, stderr=null)
 ---
+>         print("Running %s" % cmd)
 >         return subprocess.call(cmd)
