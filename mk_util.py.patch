@@ -1,5 +1,5 @@
 --- mk_util.py	2019-07-23 18:04:32.000000000 +0200
-+++ mk_util_patched_.py	2019-07-23 18:06:13.000000000 +0200
++++ mk_util_patched_.py	2019-07-24 09:13:18.000000000 +0200
 @@ -227,9 +227,13 @@
      cmd = new_cmd
      null = open(os.devnull, 'wb')
@@ -16,3 +16,21 @@
          return 1
      finally:
          null.close()
+@@ -2028,7 +2032,16 @@
+             if is_cygwin() and not(is_cygwin_mingw()):
+                 LIBZ3 = z3linkdep
+ 
+-            LIBZ3 = LIBZ3 + ' ' + ' '.join(map(lambda x: '-cclib ' + x, LDFLAGS.split()))
++            escape_linker_option_fun = lambda x: '-cclib ' + x
++            if is_cygwin_mingw():
++                def escape_linker_option(x):
++                    if x.startswith('-l'):
++                        return '-cclib ' + x
++                    else:
++                        return '-cclib -link -cclib ' + x
++                escape_linker_option_fun = escape_linker_option
++
++            LIBZ3 = LIBZ3 + ' ' + ' '.join(map(escape_linker_option, LDFLAGS.split()))
+ 
+             if DEBUG_MODE and not(is_cygwin()):
+                 # Some ocamlmklib's don't like -g; observed on cygwin, but may be others as well.
