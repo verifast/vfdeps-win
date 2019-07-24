@@ -10,13 +10,13 @@ clean::
 
 Z3_VERSION=4.8.5
 Z3_BINARY=$(PREFIX)/lib/libz3.dll
-Z3_DIR=z3-master
+Z3_DIR=z3-Z3-$(Z3_VERSION)
 Z3_SRC=$(Z3_DIR)/scripts/mk_make.py
 Z3_CFG=$(Z3_DIR)/build/Makefile
 Z3_BUILD=$(Z3_DIR)/build/libz3.dll
 
 $(Z3_SRC):
-	download_and_untar https://github.com/Z3Prover/z3/archive/master.tar.gz
+	download_and_untar https://github.com/Z3Prover/z3/archive/Z3-$(Z3_VERSION).tar.gz
 	cd $(Z3_DIR)/scripts && patch mk_util.py ../../mk_util.py.patch
 
 $(Z3_CFG): $(FINDLIB_EXE) $(Z3_SRC)
