@@ -10,7 +10,7 @@ clean::
 
 Z3_VERSION=4.8.5
 Z3_BINARY=$(PREFIX)/lib/libz3.dll
-Z3_DIR=z3-Z3-$(Z3_VERSION)
+Z3_DIR=z3-master
 Z3_SRC=$(Z3_DIR)/scripts/mk_make.py
 Z3_CFG=$(Z3_DIR)/build/Makefile
 Z3_BUILD=$(Z3_DIR)/build/libz3.dll
