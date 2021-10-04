@@ -7,7 +7,7 @@
 set -e # Stop as soon as a command fails.
 set -x # Print what is being executed.
 
-VFDEPS_NOZ3=vfdeps-a45945a-win-noz3.txz
+VFDEPS_NOZ3=vfdeps-2dcfead-win-noz3.txz
 curl -o $VFDEPS_NOZ3 -Lf https://vfdeps-cxx-win-noz3.herokuapp.com/$VFDEPS_NOZ3
 tar -C /c/ -xjf $VFDEPS_NOZ3
 
