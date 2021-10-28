@@ -15,7 +15,7 @@ VFDEPS_PARENT_DIR=C:/
 VFDEPS_PLATFORM=win
 
 VFDEPS_DIR=$VFDEPS_PARENT_DIR/$VFDEPS_DIRNAME
-# mkdir $VFDEPS_DIR
+mkdir $VFDEPS_DIR
 
 /c/cygwin/bin/bash -lc "cd /cygdrive/$BUILD_DIR && make PREFIX=$VFDEPS_DIR"
 
