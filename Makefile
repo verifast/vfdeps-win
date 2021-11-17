@@ -173,7 +173,7 @@ gtk: $(GTK_BINARY)
 
 # ---- lablgtk ----
 
-LABLGTK_VERSION=2.18.11+btj1
+LABLGTK_VERSION=2.18.11-btj1
 LABLGTK_SRC=lablgtk-$(LABLGTK_VERSION)/configure
 LABLGTK_CFG=lablgtk-$(LABLGTK_VERSION)/config.make
 LABLGTK_BUILD=lablgtk-$(LABLGTK_VERSION)/src/lablgtk.cmxa
