@@ -471,3 +471,4 @@ capnp: $(CAPNP_BINARY)
 
 clean::
 	-rm -Rf $(CAPNP_DIR)
+
