@@ -4,7 +4,7 @@ CXX_BUILD_TYPE?=Release
 SET_MSV_ENV:=vcvarsall.bat x86
 COMMON_CXX_PROPS=-p:Configuration=$(CXX_BUILD_TYPE) -p:Platform=Win32 -m
 
-all: ocaml findlib num ocamlbuild camlp4 gtk lablgtk z3 csexp dune sexplib0 base res stdio cppo ocplib-endian stdint result capnp capnp-ocaml clang
+all: ocaml findlib num ocamlbuild camlp4 gtk lablgtk z3 csexp dune sexplib0 base res stdio cppo ocplib-endian stdint result capnp capnp-ocaml
 
 clean::
 	-rm -Rf $(PREFIX)
@@ -471,38 +471,3 @@ capnp: $(CAPNP_BINARY)
 
 clean::
 	-rm -Rf $(CAPNP_DIR)
-
-# ---- llvm/clang ----
-LLVM_VERSION=13.0.0
-LLVM_DIR=llvm-project
-LLVM_BUILD_DIR=$(LLVM_DIR)/build
-CLANG_BUILD_DIR=$(LLVM_BUILD_DIR)/tools/clang
-
-$(LLVM_DIR):
-	git clone --depth 1 --branch llvmorg-$(LLVM_VERSION) https://github.com/llvm/llvm-project
-
-$(LLVM_BUILD_DIR): | $(LLVM_DIR)
-	mkdir -p $@
-
-$(CLANG_BUILD_DIR)/clang-libraries.vcxproj: | $(LLVM_BUILD_DIR)
-	cd $| && \
-	cmd /C "$(SET_MSV_ENV) && \
-	cmake -DLLVM_ENABLE_PROJECTS=clang -DLLVM_TARGETS_TO_BUILD=X86 -DLLVM_BUILD_TOOLS=0FF \
-	-G "Visual Studio 16 2019" -A Win32 -Thost=x64 ../llvm"
-
-clang_compilation: $(CLANG_BUILD_DIR)/clang-libraries.vcxproj
-	cmd /C "$(SET_MSV_ENV) && \
-	msbuild $< $(COMMON_CXX_PROPS)"
-
-%.includes: clang_compilation
-	cd $(basename $@) && \
-	find include/ -type f \( -name '*.h' -o -name '*.inc' -o -name '*.def' \) -print0 | rsync -av --files-from=- --from0 ./ $(shell cygpath "$(PREFIX)")
-
-clang_libs_installation: clang_compilation
-	cp -Rf $(LLVM_BUILD_DIR)/$(CXX_BUILD_TYPE)/lib $(PREFIX)
-
-clang: clang_libs_installation $(LLVM_DIR)/llvm.includes $(LLVM_DIR)/clang.includes $(LLVM_BUILD_DIR).includes $(CLANG_BUILD_DIR).includes
-.PHONY: clang
-
-clean::
-	-rm -Rf $(LLVM_DIR)
