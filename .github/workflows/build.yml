@@ -21,7 +21,7 @@ jobs:
         run: powershell.exe -ExecutionPolicy RemoteSigned -File .\setup-build.ps1
       
       - name: Build
-        run: powershell.exe -ExecutionPolicy RemoteSigned -File .build.ps1
+        run: powershell.exe -ExecutionPolicy RemoteSigned -File .\build.ps1
         
       - name: Upload Package
         uses: actions/upload-artifact@v2.2.3
