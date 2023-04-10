@@ -14,16 +14,13 @@ jobs:
           git config core.autocrlf false
           git checkout .
 
-      - name: Add vcvarsall to PATH
-        run: echo "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-
       - name: Build setup
-        run: ./setup-build
-        shell: pwsh
+        run: ./setup-build.sh
+        shell: bash
       
       - name: Build
-        run: ./build
-        shell: pwsh
+        run: ./build.sh
+        shell: bash
         
       - name: Upload Package
         uses: actions/upload-artifact@v2.2.3
