@@ -123,7 +123,7 @@ clean::
 	-rm -Rf ocamlbuild-$(OCAMLBUILD_VERSION)
 
 # ---- dune ----
-DUNE_VERSION=3.7.0
+DUNE_VERSION=3.7.1
 DUNE_BINARY=$(PREFIX)/bin/dune
 
 dune-$(DUNE_VERSION).tar.gz:
