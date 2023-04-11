@@ -537,7 +537,7 @@ ocaml-compiler-libs: $(OCAML_COMPILER_LIBS_BINARY)
 .PHONY: ocaml-compiler-libs
 
 clean::
-	-rm -Rd $(OCAML_COMPILER_LIBS_VERSION)
+	-rm -Rd ocaml-compiler-libs-$(OCAML_COMPILER_LIBS_VERSION)
 
 # ---- stdlib-shims ----
 STDLIB-SHIMS_VERSION=0.3.0
