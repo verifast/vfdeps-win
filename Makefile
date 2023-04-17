@@ -11,9 +11,7 @@ clean::
 OCAML_VERSION=4.14.0
 OCAML_TGZ=ocaml-$(OCAML_VERSION).tar.gz
 OCAML_DIR=ocaml-$(OCAML_VERSION)
-FLEXDLL_VERSION=0.42
-FLEXDLL_TGZ=flexdll-$(FLEXDLL_VERSION).tar.gz
-FLEXDLL_DIR=flexdll-$(FLEXDLL_VERSION)
+FLEXDLL_VERSION=ccff5fff0e01ba0492a5f5e3d55d3ce3c766e0b1
 OCAML_EXE=$(PREFIX)/bin/ocamlopt.opt.exe
 
 $(OCAML_TGZ):
@@ -22,16 +20,11 @@ $(OCAML_TGZ):
 $(OCAML_DIR): $(OCAML_TGZ)
 	tar xzfm $(OCAML_TGZ)
 
-$(FLEXDLL_TGZ):
-	curl -Lfo $(FLEXDLL_TGZ) https://github.com/alainfrisch/flexdll/archive/$(FLEXDLL_VERSION).tar.gz
+$(OCAML_DIR)/flexdll/flexdll.c: | $(OCAML_DIR)
+	cd $(OCAML_DIR) && download_and_unzip --dlcache "$(MAKEDIR)" https://github.com/ocaml/flexdll/archive/$(FLEXDLL_VERSION).zip
+	mv -T $(OCAML_DIR)/flexdll-$(FLEXDLL_VERSION) $(OCAML_DIR)/flexdll
 
-$(FLEXDLL_DIR): $(FLEXDLL_TGZ)
-	tar xzfm $(FLEXDLL_TGZ)
-
-ocaml-$(OCAML_VERSION)/flexdll/flexdll.c: | $(OCAML_DIR) $(FLEXDLL_DIR)
-	cd ocaml-$(OCAML_VERSION)/flexdll && cp -R ../../flexdll-$(FLEXDLL_VERSION)/* .
-
-$(OCAML_EXE): ocaml-$(OCAML_VERSION)/flexdll/flexdll.c | $(OCAML_DIR) $(FLEXDLL_DIR)
+$(OCAML_EXE): ocaml-$(OCAML_VERSION)/flexdll/flexdll.c | $(OCAML_DIR) $(OCAML_DIR)/flexdll/flexdll.c
 	cd ocaml-$(OCAML_VERSION) && \
 	./configure --prefix=$(PREFIX) --build=x86_64-pc-cygwin --host=x86_64-w64-mingw32 && \
 	make && make install
