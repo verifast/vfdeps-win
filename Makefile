@@ -475,14 +475,16 @@ clean::
 # ---- cap'n proto ----
 ## capnp tool to produce stubs code based on .capnp schema files, also installs the C++ plugin to create C++ stubs
 CAPNP_VERSION=0.10.4
-CAPNP_DIR=capnproto-$(CAPNP_VERSION)
+CAPNP_DIR=capnproto-c++-$(CAPNP_VERSION)
 CAPNP_BINARY=$(PREFIX)/bin/capnp.exe
 
 capnp-c++-$(CAPNP_VERSION).tar.gz:
-	curl -Lfo $@ https://github.com/capnproto/capnproto/archive/refs/tags/v$(CAPNP_VERSION).tar.gz
+	curl -Lfo $@ https://capnproto.org/capnproto-c++-$(CAPNP_VERSION).tar.gz
 
 $(CAPNP_DIR): capnp-c++-$(CAPNP_VERSION).tar.gz
 	tar xzf $<
+	patch -u $(CAPNP_DIR)/CMakeLists.txt -i capnpCMakeLists.patch
+	patch -u $(CAPNP_DIR)/src/kj/CMakeLists.txt -i capnp_src_kjCMakeLists.patch
 
 $(CAPNP_BINARY): | $(CAPNP_DIR)
 	cd $| && cmake -G Ninja -S . -B build -DCMAKE_SYSTEM_NAME=Windows -DCMAKE_CXX_COMPILER=x86_64-w64-mingw32-g++ -DWITH_OPENSSL=OFF -DWITH_ZLIB=OFF -DCMAKE_INSTALL_PREFIX=$(shell cygpath $(PREFIX)) -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXE_LINKER_FLAGS="-static-libgcc -static-libstdc++ -static" -DBUILD_TESTING=OFF && cmake --build build --target install
