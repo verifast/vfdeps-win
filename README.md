@@ -1,4 +1,4 @@
-![build workflow](https://github.com/verifast/vfdep-win/actions/workflows/build.yml/badge.svg)
+![build workflow](https://github.com/verifast/vfdeps-win/actions/workflows/build.yml/badge.svg)
 # vfdeps-win
 OCaml and OCaml-based VeriFast dependencies on Windows
 
