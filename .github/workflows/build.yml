@@ -27,3 +27,32 @@ jobs:
         with:
           name: binary_package
           path: upload/*
+  
+      - name: Generate artifact hashes
+        shell: bash
+        id: hash
+        run: |
+          cd upload && echo "artifact_hashes=$(sha256sum * | base64 -w0)" >> "$GITHUB_OUTPUT"
+
+    outputs:
+      artifact_hashes: ${{ steps.hash.outputs.artifact_hashes }}
+
+  # Sign in a separate job to limit ID token exposure
+  sign_windows:
+    needs: [build_windows]
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      
+    steps:
+      - name: Install cosign
+        #if: github.event_name != 'pull_request'
+        uses: sigstore/cosign-installer@v3.0.2
+
+      - name: Sign artifact hashes
+        #if: ${{ github.event_name != 'pull_request' }}
+        shell: bash
+        run: |
+          echo ${{ needs.build_windows.outputs.artifact_hashes }} | base64 -d > ARTIFACT_SHA256SUMS
+          cosign sign-blob -y ARTIFACT_SHA256SUMS
+
