@@ -28,6 +28,18 @@ jobs:
           name: binary_package
           path: upload/*
   
+      - name: Upload DOWNLOADS.txt
+        uses: actions/upload-artifact@v2.2.3
+        with:
+          name: downloads-info-Windows
+          path: DOWNLOADS.txt
+
+      - name: Upload downloads
+        uses: actions/upload-artifact@v2.2.3
+        with:
+          name: downloads-Windows
+          path: downloads
+
       - name: Generate artifact hashes
         shell: bash
         id: hash
