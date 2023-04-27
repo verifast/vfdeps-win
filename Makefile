@@ -21,7 +21,7 @@ $(OCAML_DIR): $(OCAML_TGZ)
 	tar xzfm $(OCAML_TGZ)
 
 $(OCAML_DIR)/flexdll/flexdll.c: | $(OCAML_DIR)
-	cd $(OCAML_DIR) && download_and_unzip --dlcache "$(MAKEDIR)" https://github.com/ocaml/flexdll/archive/$(FLEXDLL_VERSION).zip
+	cd $(OCAML_DIR) && download_and_unzip --dlcache "$(MAKEDIR)" https://github.com/ocaml/flexdll/archive/$(FLEXDLL_VERSION).zip 7235b20d00227c2e02177265a3dd3f7cc664b1135892448ea2c716ad938ea9e4
 	mv -T $(OCAML_DIR)/flexdll-$(FLEXDLL_VERSION) $(OCAML_DIR)/flexdll
 
 $(OCAML_EXE): ocaml-$(OCAML_VERSION)/flexdll/flexdll.c | $(OCAML_DIR) $(OCAML_DIR)/flexdll/flexdll.c
@@ -185,7 +185,7 @@ GTK_BINARY=$(PREFIX)/bin/gtk-demo.exe
 
 $(GTK_BINARY):
 	cd $(PREFIX) && \
-	download_and_unzip --dlcache "$(MAKEDIR)" "https://download.gnome.org/binaries/win64/gtk+/2.22/gtk%2B-bundle_2.22.1-20101229_win64.zip" && \
+	download_and_unzip --dlcache "$(MAKEDIR)" "https://download.gnome.org/binaries/win64/gtk+/2.22/gtk%2B-bundle_2.22.1-20101229_win64.zip" 347c488e266927140c7eb8c90c230d23469b63f74ee1ac403f6783fa68d38435 && \
 	mv bin/pkg-config.exe bin/pkg-config.exe_ && \
 	cp "$(MAKEDIR)/pkg-config_" bin/pkg-config && \
 	mv bin/pkg-config.exe_ bin/pkg-config.exe
@@ -246,7 +246,7 @@ LABLGTK_BUILD=lablgtk-$(LABLGTK_VERSION)/src/lablgtk.cmxa
 LABLGTK_BINARY=$(PREFIX)/lib/ocaml/lablgtk2/lablgtk.cmxa
 
 $(LABLGTK_SRC):
-	download_and_untar https://github.com/garrigue/lablgtk/archive/refs/tags/$(LABLGTK_VERSION).tar.gz
+	download_and_untar https://github.com/garrigue/lablgtk/archive/refs/tags/$(LABLGTK_VERSION).tar.gz 7b9e680452458fd351cf8622230d62c3078db528446384268cd0dc37be82143c
 $(LABLGTK_CFG): $(CAMLP4_BINARY) $(GTK_BINARY) $(GTK_SOURCEVIEW_DLL) | $(LABLGTK_SRC)
 	cd lablgtk-$(LABLGTK_VERSION) && \
 	  (./configure "CC=CC=x86_64-w64-mingw32-gcc" "USE_CC=1" || bash -vx ./configure "CC=x86_64-w64-mingw32-gcc" "USE_CC=1") && \
@@ -276,7 +276,7 @@ Z3_CFG=$(Z3_DIR)/build/Makefile
 Z3_BUILD=$(Z3_DIR)/build/libz3.dll
 
 $(Z3_SRC):
-	download_and_untar https://github.com/Z3Prover/z3/archive/Z3-$(Z3_VERSION).tar.gz
+	download_and_untar https://github.com/Z3Prover/z3/archive/Z3-$(Z3_VERSION).tar.gz 4e8e232887ddfa643adb6a30dcd3743cb2fa6591735fbd302b49f7028cdc0363
 	cd $(Z3_DIR)/scripts && patch mk_util.py ../../mk_util.py.patch
 
 $(Z3_CFG): $(FINDLIB_EXE) $(NUM_BINARY) | $(Z3_SRC)
