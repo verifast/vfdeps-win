@@ -66,5 +66,11 @@ jobs:
         shell: bash
         run: |
           echo ${{ needs.build_windows.outputs.artifact_hashes }} | base64 -d > ARTIFACT_SHA256SUMS
-          cosign sign-blob -y ARTIFACT_SHA256SUMS
+          mkdir -p upload
+          cosign sign-blob -y --output-signature upload/SHA256SUMS-keyless.sig --output-certificate upload/SHA256SUMS-keyless.pem ARTIFACT_SHA256SUMS
 
+      - name: Upload signature
+        uses: actions/upload-artifact@v2.2.3
+        with:
+          name: cosign-signature
+          path: upload
