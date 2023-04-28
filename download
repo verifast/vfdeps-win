@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -e
+
+curl -Lfo $1 $2
+SHASUM="$(shasum -a 256 $1)"
+HASH="${SHASUM%% *}"
+echo "$SHASUM $2" >> DOWNLOADS.txt
+if [[ "$HASH" != "$3" ]]
+then
+  echo "Actual SHA-256 hash $HASH of $1 does not match expected hash $3"
+  exit 1
+fi
+mkdir -p downloads
+cp $1 downloads/$1
